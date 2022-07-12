@@ -1,29 +1,47 @@
-async function demo() {
-    try {
-        const resultsElem = document.getElementById("results")
-        const usersResp = await fetch('users.json')
-        const users = await usersResp.json()
-        console.log(users);
-        const gitUsers = await Promise.all(users.map(async user => {
-            const gitUserResp = await fetch(`https://api.github.com/users/${user.username}`);
-            return await gitUserResp.json();
-        }));
-        console.log(gitUsers);
-        const images = gitUsers.map(u => {
-            const img = new Image();
-            img.src = u.avatar_url;
-            resultsElem.appendChild(img);
-            return img;
-        });
-        await new Promise((resolve, reject) => {
-            setTimeout(resolve, 10000)
-        });
-        images.forEach(img => resultsElem.removeChild(img));
-    } catch(err) {
-        console.log(`Error: ${err}`)
-    } finally {
-        console.log("Demo finished.")
+async function googleApi(searchText) {
+    let resultsElem = document.getElementById("results")
+    bookName="react"
+
+    if(searchText===""){
+        alert("Please enter valid book name.");
+        return;
     }
+    
+    try{
+    const bookResponse = await fetch('https://www.googleapis.com/books/v1/volumes?q=react');
+    const googleBooks = await bookResponse.json();
+    console.log(googleBooks.Items);
+    let books = googleBooks.items.map(book =>{
+        let card = document.createElement("div");
+        card.className = "card";
+        let img = new Image();
+        img.src=book.volumeInfo.imageLinks.thumbnail;
+        card.appendChild(img);
+        let title = document.createElement("h1");
+        let titleContent = document.createTextNode(book.volumeInfo.title +" : "+ book.volumeInfo.subtitle);
+        title.appendChild(titleContent);
+        card.appendChild(title);
+        let author = document.createElement("p");
+        author.className = "author";
+        let authorContent = document.createTextNode(book.volumeInfo.authors);
+        author.appendChild(authorContent);
+        card.appendChild(author);
+        let description = document.createElement("p");
+        let descriptionContent = document.createTextNode(book.searchInfo.textSnippet);
+        description.appendChild(descriptionContent);
+        card.appendChild(description);
+
+        resultsElem.appendChild(card);
+            return card;
+
+        
+    })
+
+    }catch(err) {
+        console.log(`Error: ${err}`)
+    }
+
+
 }
 
-demo()
+googleApi()

@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles/main.css">
   <title>Google Books</title>
   <link rel="icon" type="image/x-icon" href="img/icon-library-12.jpg">
+  <script src="script/google-books-api-async.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -22,10 +23,14 @@
     </header>
 
     <article id="search">
-      <form action="">
-        <input type="text" placeholder="Search..." name="search">
-        <button type="submit">Submit</button>
+      <form>
+        <input type="text" id="searchBar"  placeholder="Search..." name="search">
+        <button id="searchButton" onclick="googleApi(document.getElementById('searchBar').value)" type="submit">Submit</button>
       </form>
+    </article>
+
+    <article id="results">
+
     </article>
 
     
@@ -35,6 +40,10 @@
       </p>
     </footer>
   </div>
+
+
+
+
 </body>
 
 </html>
