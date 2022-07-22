@@ -1,0 +1,21 @@
+{
+  "name": "homework-google-books-api-favourites",
+  "version": "1.0.0",
+  "description": "Refactoring Google Books API application by adding Favourite Books and Book Annotations",
+  "main": "index.html",
+  "repository": "https://github.com/stanchyyy/full-stack",
+  "author": "Stanislav Atanasov",
+  "license": "MIT",
+  "scripts": {
+    "start" : "lite-server",
+    "api": "json-server --watch db.json --routes routes.json"
+  },
+  "private": false,
+  "dependencies": {
+    "lite-server": "^2.6.1"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.0",
+    "lite-server": "^2.6.1"
+  }
+}
